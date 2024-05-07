@@ -71,8 +71,27 @@ var sound = new L.tileLayer.wms(wms_sound_url, {
   pointerCursor: true,
 });
 
+var parcel_url = "http://localhost:8080/geoserver/cite/wms?";
+var parcel = new L.tileLayer.wms(parcel_url, {
+  layers: "cite:delft_parcels",
+  styles: "", 
+  format: "image/png",
+  transparent: true,
+  pointerCursor: true,
+});
+
+var ambient_url = "https://service.pdok.nl/rvo/omgevingswarmte/wms/v1_0?";
+var ambient = new L.tileLayer.wms(ambient_url, {
+  layers: "warmteopenwkogem",
+  styles: "",
+  format: "image/png",
+  transparent: true,
+  pointerCursor: true,
+});
+
 var overlays = {
   "Road noise [WMS]": sound,
+  "parcels [WMS]": parcel,
 };
 
 var baseLayers = {
@@ -81,6 +100,7 @@ var baseLayers = {
   "BRT-Achtergrondkaart Pastel [WMTS]": brtPastel,
   "BRT-Achtergrondkaart Water [WMTS]": brtWater,
   "Aerial photo [WMS]": basemap_aerial,
+  "Ambient_heat [WMS]": ambient,
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);
